@@ -1,0 +1,42 @@
+#include <iostream>
+#include <vector>
+
+using namespace std;
+
+
+void modifyArray(vector<int>& A) {
+    int N = A.size();
+    for (int i = 0; i < N / 2; i++) {
+        A[i] *= 2; // Перша половина множиться на 2
+    }
+    for (int i = N / 2; i < N; i++) {
+        A[i] *= 3; // Друга половина множиться на 3
+    }
+}
+
+// Функція для виведення масиву
+void printArray(const vector<int>& arr) {
+    for (int num : arr) {
+        cout << num << " ";
+    }
+    cout << endl;
+}
+
+int main() {
+    int N;
+    cout << "Введіть розмір масиву N: ";
+    cin >> N;
+
+    vector<int> A(N);
+    cout << "Введіть елементи масиву A: ";
+    for (int i = 0; i < N; i++) {
+        cin >> A[i];
+    }
+
+    modifyArray(A); // Змінюємо масив
+
+    cout << "Масив після зміни: ";
+    printArray(A); // Виводимо змінений масив
+
+    return 0;
+}
