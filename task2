@@ -1,0 +1,58 @@
+#include <iostream>
+#include <vector>
+#include <limits>
+
+using namespace std;
+
+int findLastMinEvenPositiveIndex(const vector<int>& A) {
+    int firstNegativeIndex = -1;
+    int lastMinIndex = -1;
+    int minValue = numeric_limits<int>::max(); // Початкове значення – максимально можливе
+
+    // Знаходимо перший від’ємний елемент
+    for (int i = 0; i < A.size(); i++) {
+        if (A[i] < 0) {
+            firstNegativeIndex = i;
+            break;
+        }
+    }
+
+    // Якщо від’ємного елемента немає – повертаємо -1
+    if (firstNegativeIndex == -1) {
+        return -1;
+    }
+
+    // Перебираємо всі елементи після першого від’ємного
+    for (int i = firstNegativeIndex + 1; i < A.size(); i++) {
+        if (A[i] > 0 && A[i] % 2 == 0) { // Додатний і парний
+            if (A[i] <= minValue) { // Знаходимо останній мінімальний
+                minValue = A[i];
+                lastMinIndex = i;
+            }
+        }
+    }
+
+    return lastMinIndex;
+}
+
+int main() {
+    int N;
+    cout << "Введіть розмір масиву N: ";
+    cin >> N;
+
+    vector<int> A(N);
+    cout << "Введіть елементи масиву A: ";
+    for (int i = 0; i < N; i++) {
+        cin >> A[i];
+    }
+
+    int result = findLastMinEvenPositiveIndex(A);
+
+    if (result != -1) {
+        cout << "Номер останнього мінімального парного додатного елемента: " << result << endl;
+    } else {
+        cout << "Не знайдено підходящих елементів." << endl;
+    }
+
+    return 0;
+}
